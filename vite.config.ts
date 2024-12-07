@@ -11,7 +11,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'index.ts'),
+      entry: path.resolve(__dirname, 'src/edit-crafter/EditCrafter.tsx'),
       name: 'EditCrafter',
       // formats: ["es", "umd"],
       fileName: (format) => `index.${format}.js`,
@@ -33,7 +33,8 @@ export default defineConfig({
       insertTypesEntry: true,
       tsconfigPath: resolve(__dirname, "tsconfig.app.json"),
       // rollupTypes: true,
-      outDir: 'dist'
+      outDir: 'dist',
+
     }
   )],
 })
