@@ -22,7 +22,7 @@ import {
 import { fileToBase64, getOutput, randomId } from '../utils'
 import { useThrottle } from './use-throttle'
 
-export interface UseMinimalTiptapEditorProps extends UseEditorOptions {
+export interface UseSwiftFlowEditorProps extends UseEditorOptions {
   value?: Content
   output?: 'html' | 'json' | 'text'
   placeholder?: string
@@ -159,7 +159,7 @@ const createExtensions = (placeholder: string) => [
   Placeholder.configure({ placeholder: () => placeholder })
 ]
 
-export const useMinimalTiptapEditor = ({
+export const useSwiftFlowEditor = ({
   value,
   output = 'html',
   placeholder = '',
@@ -168,7 +168,7 @@ export const useMinimalTiptapEditor = ({
   onUpdate,
   onBlur,
   ...props
-}: UseMinimalTiptapEditorProps) => {
+}: UseSwiftFlowEditorProps) => {
   const throttledSetValue = useThrottle((value: Content) => onUpdate?.(value), throttleDelay)
 
   const handleUpdate = React.useCallback(
@@ -206,4 +206,4 @@ export const useMinimalTiptapEditor = ({
   return editor
 }
 
-export default useMinimalTiptapEditor
+export default useSwiftFlowEditor

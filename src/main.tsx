@@ -1,13 +1,13 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { TooltipProvider } from "./components/ui/tooltip";
-import { MinimalTiptapEditor } from "./flow-edit";
 import "./index.css";
 import { cn } from "./lib/utils";
+import { SwiftFlowEditor } from "./swift-flow";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <TooltipProvider>
-      <MinimalTiptapEditor
+      <SwiftFlowEditor
         value={"hi this is editor"}
         throttleDelay={0}
         className={cn("w-full", {
