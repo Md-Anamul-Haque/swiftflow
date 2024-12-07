@@ -1,22 +1,22 @@
-.swiftflow .ProseMirror code.inline {
+.edit-crafter .ProseMirror code.inline {
   @apply rounded border border-[var(--mt-code-color)] bg-[var(--mt-code-background)] px-1 py-0.5 text-sm;
 }
 
-.swiftflow .ProseMirror pre {
+.edit-crafter .ProseMirror pre {
   @apply relative overflow-auto rounded border font-mono text-sm;
   @apply border-[var(--mt-pre-border)] bg-[var(--mt-pre-background)] text-[var(--mt-pre-color)];
   @apply hyphens-none whitespace-pre text-left;
 }
 
-.swiftflow .ProseMirror code {
+.edit-crafter .ProseMirror code {
   @apply break-words leading-[1.7em];
 }
 
-.swiftflow .ProseMirror pre code {
+.edit-crafter .ProseMirror pre code {
   @apply block overflow-x-auto p-3.5;
 }
 
-.swiftflow .ProseMirror pre {
+.edit-crafter .ProseMirror pre {
   .hljs-keyword,
   .hljs-operator,
   .hljs-function,

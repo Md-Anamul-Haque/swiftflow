@@ -1,39 +1,39 @@
-.swiftflow .ProseMirror .heading-node {
+.edit-crafter .ProseMirror .heading-node {
   @apply relative font-semibold;
 }
 
-.swiftflow .ProseMirror .heading-node:first-child {
+.edit-crafter .ProseMirror .heading-node:first-child {
   @apply mt-0;
 }
 
-.swiftflow .ProseMirror h1 {
+.edit-crafter .ProseMirror h1 {
   @apply mb-4 mt-[46px] text-[1.375rem] leading-7 tracking-[-0.004375rem];
 }
 
-.swiftflow .ProseMirror h2 {
+.edit-crafter .ProseMirror h2 {
   @apply mb-3.5 mt-8 text-[1.1875rem] leading-7 tracking-[0.003125rem];
 }
 
-.swiftflow .ProseMirror h3 {
+.edit-crafter .ProseMirror h3 {
   @apply mb-3 mt-6 text-[1.0625rem] leading-6 tracking-[0.00625rem];
 }
 
-.swiftflow .ProseMirror h4 {
+.edit-crafter .ProseMirror h4 {
   @apply mb-2 mt-4 text-[0.9375rem] leading-6;
 }
 
-.swiftflow .ProseMirror h5 {
+.edit-crafter .ProseMirror h5 {
   @apply mb-2 mt-4 text-sm;
 }
 
-.swiftflow .ProseMirror h5 {
+.edit-crafter .ProseMirror h5 {
   @apply mb-2 mt-4 text-sm;
 }
 
-.swiftflow .ProseMirror a.link {
+.edit-crafter .ProseMirror a.link {
   @apply cursor-pointer text-primary;
 }
 
-.swiftflow .ProseMirror a.link:hover {
+.edit-crafter .ProseMirror a.link:hover {
   @apply underline;
 }

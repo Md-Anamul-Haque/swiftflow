@@ -12,9 +12,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'index.ts'),
-      name: 'SwiftFlow',
+      name: 'EditCrafter',
       // formats: ["es", "umd"],
-      fileName: (format) => `swift-flow.${format}.js`,
+      fileName: (format) => `edit-Crafter.${format}.js`,
     },
     rollupOptions: {
       external: ['react', 'react-dom'],

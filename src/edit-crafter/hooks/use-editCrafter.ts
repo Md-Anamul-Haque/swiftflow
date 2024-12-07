@@ -23,7 +23,7 @@ import { getOutput, randomId } from '../utils'
 import { useThrottle } from './use-throttle'
 type src = string
 export type OnFileUpload = (file: File) => Promise<src>;
-export interface UseSwiftFlowEditorProps extends UseEditorOptions {
+export interface UseEditCrafterEditorProps extends UseEditorOptions {
   value?: Content
   output?: 'html' | 'json' | 'text'
   placeholder?: string
@@ -171,7 +171,7 @@ const createExtensions = (placeholder: string, onFileUpload: OnFileUpload | null
   Placeholder.configure({ placeholder: () => placeholder })
 ]
 
-export const useSwiftFlowEditor = ({
+export const useEditCrafterEditor = ({
   value,
   output = 'html',
   placeholder = '',
@@ -181,7 +181,7 @@ export const useSwiftFlowEditor = ({
   onBlur,
   onFileUpload,
   ...props
-}: UseSwiftFlowEditorProps) => {
+}: UseEditCrafterEditorProps) => {
   const throttledSetValue = useThrottle((value: Content) => onUpdate?.(value), throttleDelay)
 
   const handleUpdate = React.useCallback(
@@ -219,4 +219,4 @@ export const useSwiftFlowEditor = ({
   return editor
 }
 
-export default useSwiftFlowEditor
+export default useEditCrafterEditor

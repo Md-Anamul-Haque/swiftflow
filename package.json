@@ -1,15 +1,15 @@
 {
-  "name": "swiftflow",
-  "private": true,
-  "version": "0.0.0",
+  "name": "editcrafter",
+  "private": false,
+  "version": "0.1.0",
   "type": "module",
-  "main": "./dist/swift-flow.umd.js",
-  "module": "./dist/swift-flow.es.js",
-  "types": "/dist/swift-flow.d.ts",
+  "main": "./dist/edit-Crafter.umd.js",
+  "module": "./dist/edit-Crafter.es.js",
+  "types": "/dist/edit-Crafter.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/swift-flow.es.js",
-      "require": "./dist/swift-flow.umd.js"
+      "import": "./dist/edit-Crafter.es.js",
+      "require": "./dist/edit-Crafter.umd.js"
     }
   },
   "files": [
@@ -25,6 +25,39 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "keywords": [
+    "react",
+    "editor",
+    "rich-text",
+    "wysiwyg",
+    "tiptap",
+    "text-editor",
+    "markdown",
+    "react-editor",
+    "typescript",
+    "code-block",
+    "image-upload",
+    "file-handler",
+    "react-ui",
+    "custom-editor",
+    "drag-and-drop",
+    "placeholder",
+    "tailwindcss",
+    "text-styling",
+    "collaborative",
+    "markdown-editor",
+    "react-components"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Md-Anamul-Haque/editcrafter.git"
+  },
+  "author": "md-anamul-haque",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Md-Anamul-Haque/editcrafter/issues"
+  },
+  "homepage": "https://github.com/Md-Anamul-Haque/editcrafter#readme",
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-dropdown-menu": "^2.1.2",

@@ -96,94 +96,94 @@
   --hljs-number: #b6e7b6;
 }
 
-.swiftflow .ProseMirror {
+.edit-crafter .ProseMirror {
   @apply flex max-w-full cursor-text flex-col;
   @apply z-0 outline-0;
 }
 
-.swiftflow .ProseMirror > div.editor {
+.edit-crafter .ProseMirror > div.editor {
   @apply block flex-1 whitespace-pre-wrap;
 }
 
-.swiftflow .ProseMirror .block-node:not(:last-child),
-.swiftflow .ProseMirror .list-node:not(:last-child),
-.swiftflow .ProseMirror .text-node:not(:last-child) {
+.edit-crafter .ProseMirror .block-node:not(:last-child),
+.edit-crafter .ProseMirror .list-node:not(:last-child),
+.edit-crafter .ProseMirror .text-node:not(:last-child) {
   @apply mb-2.5;
 }
 
-.swiftflow .ProseMirror ol,
-.swiftflow .ProseMirror ul {
+.edit-crafter .ProseMirror ol,
+.edit-crafter .ProseMirror ul {
   @apply pl-6;
 }
 
-.swiftflow .ProseMirror blockquote,
-.swiftflow .ProseMirror dl,
-.swiftflow .ProseMirror ol,
-.swiftflow .ProseMirror p,
-.swiftflow .ProseMirror pre,
-.swiftflow .ProseMirror ul {
+.edit-crafter .ProseMirror blockquote,
+.edit-crafter .ProseMirror dl,
+.edit-crafter .ProseMirror ol,
+.edit-crafter .ProseMirror p,
+.edit-crafter .ProseMirror pre,
+.edit-crafter .ProseMirror ul {
   @apply m-0;
 }
 
-.swiftflow .ProseMirror li {
+.edit-crafter .ProseMirror li {
   @apply leading-7;
 }
 
-.swiftflow .ProseMirror p {
+.edit-crafter .ProseMirror p {
   @apply break-words;
 }
 
-.swiftflow .ProseMirror li .text-node:has(+ .list-node),
-.swiftflow .ProseMirror li > .list-node,
-.swiftflow .ProseMirror li > .text-node,
-.swiftflow .ProseMirror li p {
+.edit-crafter .ProseMirror li .text-node:has(+ .list-node),
+.edit-crafter .ProseMirror li > .list-node,
+.edit-crafter .ProseMirror li > .text-node,
+.edit-crafter .ProseMirror li p {
   @apply mb-0;
 }
 
-.swiftflow .ProseMirror blockquote {
+.edit-crafter .ProseMirror blockquote {
   @apply relative pl-3.5;
 }
 
-.swiftflow .ProseMirror blockquote::before,
-.swiftflow .ProseMirror blockquote.is-empty::before {
+.edit-crafter .ProseMirror blockquote::before,
+.edit-crafter .ProseMirror blockquote.is-empty::before {
   @apply absolute bottom-0 left-0 top-0 h-full w-1 rounded-sm bg-accent-foreground/15 content-[''];
 }
 
-.swiftflow .ProseMirror hr {
+.edit-crafter .ProseMirror hr {
   @apply my-3 h-0.5 w-full border-none bg-[var(--mt-hr)];
 }
 
-.swiftflow .ProseMirror-focused hr.ProseMirror-selectednode {
+.edit-crafter .ProseMirror-focused hr.ProseMirror-selectednode {
   @apply rounded-full outline outline-2 outline-offset-1 outline-muted-foreground;
 }
 
-.swiftflow .ProseMirror .ProseMirror-gapcursor {
+.edit-crafter .ProseMirror .ProseMirror-gapcursor {
   @apply pointer-events-none absolute hidden;
 }
 
-.swiftflow .ProseMirror .ProseMirror-hideselection {
+.edit-crafter .ProseMirror .ProseMirror-hideselection {
   @apply caret-transparent;
 }
 
-.swiftflow .ProseMirror.resize-cursor {
+.edit-crafter .ProseMirror.resize-cursor {
   @apply cursor-col-resize;
 }
 
-.swiftflow .ProseMirror .selection {
+.edit-crafter .ProseMirror .selection {
   @apply inline-block;
 }
 
-.swiftflow .ProseMirror s span {
+.edit-crafter .ProseMirror s span {
   @apply line-through;
 }
 
-.swiftflow .ProseMirror .selection,
-.swiftflow .ProseMirror *::selection,
+.edit-crafter .ProseMirror .selection,
+.edit-crafter .ProseMirror *::selection,
 ::selection {
   @apply bg-primary/25;
 }
 
 /* Override native selection when custom selection is present */
-.swiftflow .ProseMirror .selection::selection {
+.edit-crafter .ProseMirror .selection::selection {
   background: transparent;
 }

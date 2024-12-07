@@ -13,11 +13,11 @@ import { SectionFour } from "./components/section/four";
 import { SectionOne } from "./components/section/one";
 import { SectionThree } from "./components/section/three";
 import { SectionTwo } from "./components/section/two";
-import type { UseSwiftFlowEditorProps } from "./hooks/use-swiftFlow";
-import { useSwiftFlowEditor } from "./hooks/use-swiftFlow";
+import type { UseEditCrafterEditorProps } from "./hooks/use-swiftFlow";
+import { useEditCrafterEditor } from "./hooks/use-swiftFlow";
 
-export interface SwiftFlowProps
-  extends Omit<UseSwiftFlowEditorProps, "onUpdate"> {
+export interface EditCrafterProps
+  extends Omit<UseEditCrafterEditorProps, "onUpdate"> {
   value?: Content;
   onChange?: (value: Content) => void;
   className?: string;
@@ -67,41 +67,42 @@ const Toolbar = ({ editor }: { editor: Editor }) => (
   </div>
 );
 
-export const SwiftFlowEditor = React.forwardRef<HTMLDivElement, SwiftFlowProps>(
-  ({ value, onChange, className, editorContentClassName, ...props }, ref) => {
-    const editor = useSwiftFlowEditor({
-      value,
-      onUpdate: onChange,
-      ...props,
-    });
+export const EditCrafterEditor = React.forwardRef<
+  HTMLDivElement,
+  EditCrafterProps
+>(({ value, onChange, className, editorContentClassName, ...props }, ref) => {
+  const editor = useEditCrafterEditor({
+    value,
+    onUpdate: onChange,
+    ...props,
+  });
 
-    if (!editor) {
-      return null;
-    }
-
-    return (
-      <TooltipProvider>
-        <MeasuredContainer
-          as="div"
-          name="editor"
-          ref={ref}
-          className={cn(
-            "flex h-auto min-h-72 w-full flex-col rounded-md border border-input shadow-sm focus-within:border-primary",
-            className
-          )}
-        >
-          <Toolbar editor={editor} />
-          <EditorContent
-            editor={editor}
-            className={cn("swiftflow", editorContentClassName)}
-          />
-          <LinkBubbleMenu editor={editor} />
-        </MeasuredContainer>
-      </TooltipProvider>
-    );
+  if (!editor) {
+    return null;
   }
-);
 
-SwiftFlowEditor.displayName = "SwiftFlowEditor";
+  return (
+    <TooltipProvider>
+      <MeasuredContainer
+        as="div"
+        name="editor"
+        ref={ref}
+        className={cn(
+          "flex h-auto min-h-72 w-full flex-col rounded-md border border-input shadow-sm focus-within:border-primary",
+          className
+        )}
+      >
+        <Toolbar editor={editor} />
+        <EditorContent
+          editor={editor}
+          className={cn("editcrafter", editorContentClassName)}
+        />
+        <LinkBubbleMenu editor={editor} />
+      </MeasuredContainer>
+    </TooltipProvider>
+  );
+});
 
-export default SwiftFlowEditor;
+EditCrafterEditor.displayName = "EditCrafterEditor";
+
+export default EditCrafterEditor;

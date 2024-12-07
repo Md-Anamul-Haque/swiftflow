@@ -1,2 +1,2 @@
-export * from './src/swift-flow/SwiftFlow';
+export * from './src/edit-crafter/EditCrafter';
 

@@ -1,129 +1,102 @@
-# SwiftFlow
+To use **EditCrafter** with Tailwind CSS, you need to set up Tailwind CSS in your project. Here's a step-by-step guide to help you integrate Tailwind CSS and customize your `tailwind.config.js` file for use with **EditCrafter**.
 
-**SwiftFlow** is a powerful, customizable, and user-friendly React component for building rich text editors. Designed with modern web development in mind, it provides developers with an intuitive, extensible, and performant solution for adding text editing functionality to their React applications.
+## Step 1: Install Tailwind CSS
 
-## Features
-
-- **Customizable Toolbar**: Easily configurable toolbar sections with options for headings, lists, formatting, and more.
-- **Image and File Upload**: Built-in image and file handling with upload support, validation, and error handling.
-- **Placeholder Support**: Customizable placeholder text for a better user experience.
-- **Multiple Content Outputs**: Supports various content output formats such as `HTML`, `JSON`, and `Text`.
-- **Real-time Updates**: Callbacks to capture content changes in real-time.
-- **Accessibility & Responsiveness**: Designed to work well across devices and screen sizes.
-
-## Installation
-
-To install **SwiftFlow** in your React project, run the following command:
+If you haven't installed Tailwind CSS in your project yet, run the following commands to add it:
 
 ```bash
-npm install swiftflow
+npm install -D tailwindcss postcss autoprefixer
 ```
 
-or
+or with yarn:
 
 ```bash
-yarn add swiftflow
+yarn add -D tailwindcss postcss autoprefixer
 ```
 
-## Usage
+Then, create the `tailwind.config.js` file by running:
 
-Here's a basic example of how to integrate **SwiftFlow** into your React application:
+```bash
+npx tailwindcss init
+```
+
+## Step 2: Configure `tailwind.config.js`
+
+Open the `tailwind.config.js` file and customize it as needed for your project. Here's a basic configuration to get started with **EditCrafter**:
+
+```javascript
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/editcrafter/**/*.{js,ts,jsx,tsx}", // Add this line to include EditCrafter components
+  ],
+  theme: {
+    extend: {
+      // Add custom theme configurations if needed
+    },
+  },
+  plugins: [],
+};
+```
+
+- The `content` array includes paths to all your source files and any external components, such as those from the **EditCrafter** package, to ensure Tailwind CSS can purge unused styles for a smaller output file.
+
+## Step 3: Add Tailwind Directives to Your CSS
+
+Create or open your main CSS file (e.g., `./src/styles/index.css`) and add the Tailwind directives:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+This will import Tailwind CSS styles into your project.
+
+## Step 4: Import Your CSS File
+
+Ensure that your CSS file is imported at the top of your `index.tsx` or `App.tsx`:
 
 ```typescript
-import React, { useState } from "react";
-import { SwiftFlowEditor } from "swiftflow";
-
-const App: React.FC = () => {
-  const [editorContent, setEditorContent] = useState("");
-
-  return (
-    <div className="App">
-      <SwiftFlowEditor
-        value={editorContent}
-        onChange={setEditorContent}
-        placeholder="Start typing..."
-        onFileUpload={async (file) => {
-          // Simulate an upload process and return a file URL
-          const fileUrl = "https://example.com/path/to/uploaded/file";
-          return fileUrl;
-        }}
-      />
-    </div>
-  );
-};
-
-export default App;
+import "./styles/index.css";
 ```
 
-## Props Overview
+## Final Note: Customization for **EditCrafter**
 
-### `SwiftFlowEditor`
+- You can customize the theme in your `tailwind.config.js` by extending `theme` as needed for your specific use case.
+- **EditCrafter** already comes with built-in styles, but you can add your own custom Tailwind classes to further style the editor's components.
 
-- **`value`** (`Content`): Initial content of the editor.
-- **`onChange`** (`(value: Content) => void`): Callback to handle content updates.
-- **`className`** (`string`): Custom CSS class for the editor container.
-- **`editorContentClassName`** (`string`): Custom CSS class for the content area.
-- **`placeholder`** (`string`): Placeholder text for the editor.
-- **`onFileUpload`** (`(file: File) => Promise<string>`): Function for handling file uploads. Must return a URL of the uploaded file.
+## Full Example of a `tailwind.config.js` File
 
-### `useSwiftFlowEditor`
+Here's an example `tailwind.config.js` file that you can use as a template:
 
-- **`value`** (`Content`): Initial content for the editor.
-- **`output`** (`'html' | 'json' | 'text'`): The output format of the editor content. Defaults to `'html'`.
-- **`placeholder`** (`string`): The placeholder text displayed in the editor.
-- **`editorClassName`** (`string`): Custom class for the editor.
-- **`throttleDelay`** (`number`): Delay for throttling content updates in milliseconds. Defaults to `0`.
-- **`onUpdate`** (`(content: Content) => void`): Callback called when the content changes.
-- **`onBlur`** (`(content: Content) => void`): Callback called when the editor loses focus.
-- **`onFileUpload`** (`(file: File) => Promise<string>`): Function to handle file uploads.
+```javascript
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/editcrafter/**/*.{js,ts,jsx,tsx}", // Ensure EditCrafter components are included
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: "#1DA1F2",
+        secondary: "#657786",
+      },
+      fontFamily: {
+        sans: ["Arial", "Helvetica", "sans-serif"],
+      },
+    },
+  },
+  plugins: [],
+};
+```
 
-## Customizing the Editor
+## Using **EditCrafter** with Tailwind
 
-**SwiftFlow** is built with a highly modular architecture that allows customization of its features. You can adjust the toolbar, modify the extension configurations, and add or remove features as needed.
+Once you've completed the above steps, you can use **EditCrafter** in your project and style its components using Tailwind CSS classes as needed.
 
-### Extending with Custom Extensions
+## Repository Information
 
-If you want to add more custom features, you can extend the `createExtensions` function in `useSwiftFlowEditor` to include your custom extensions.
-
-## Development & Contribution
-
-To contribute to **SwiftFlow**, follow these steps:
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/md-anamul-haque/swiftflow.git
-   cd swiftflow
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-3. Run the development server:
-
-   ```bash
-   npm start
-   ```
-
-4. Create a feature branch and make your changes:
-
-   ```bash
-   git checkout -b feature/your-feature
-   ```
-
-5. Push your changes and create a pull request.
-
-## License
-
-**SwiftFlow** is open-source and available under the [MIT License](LICENSE).
-
-## Acknowledgements
-
-**SwiftFlow** is built with [TipTap](https://tiptap.dev/) and leverages its robust extensibility and API to provide a seamless and powerful editing experience.
-
----
-
-For more detailed documentation, please refer to the [full documentation](./docs/README.md) (if available) or visit the [GitHub repository](https://github.com/md-anamul-haque/swiftflow).
+You can find the **EditCrafter** package and its development updates on [GitHub](https://github.com/Md-Anamul-Haque/editcrafter.git). For any issues or contributions, feel free to open an issue or submit a pull request.

@@ -1,0 +1,23 @@
+.edit-crafter .ProseMirror ol {
+  @apply list-decimal;
+}
+
+.edit-crafter .ProseMirror ol ol {
+  list-style: lower-alpha;
+}
+
+.edit-crafter .ProseMirror ol ol ol {
+  list-style: lower-roman;
+}
+
+.edit-crafter .ProseMirror ul {
+  list-style: disc;
+}
+
+.edit-crafter .ProseMirror ul ul {
+  list-style: circle;
+}
+
+.edit-crafter .ProseMirror ul ul ul {
+  list-style: square;
+}

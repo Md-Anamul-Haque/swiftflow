@@ -1,11 +1,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { EditCrafterEditor } from "./edit-crafter/EditCrafter";
 import "./index.css";
 import { cn } from "./lib/utils";
-import { SwiftFlowEditor } from "./swift-flow/SwiftFlow";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <SwiftFlowEditor
+    <EditCrafterEditor
       value={"hi this is editor"}
       throttleDelay={0}
       className={cn("w-full", {
