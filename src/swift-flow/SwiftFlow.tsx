@@ -2,6 +2,7 @@ import * as React from "react";
 import "./styles/index.css";
 
 import { Separator } from "@/components/ui/separator";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import type { Content, Editor } from "@tiptap/react";
 import { EditorContent } from "@tiptap/react";
@@ -12,8 +13,8 @@ import { SectionFour } from "./components/section/four";
 import { SectionOne } from "./components/section/one";
 import { SectionThree } from "./components/section/three";
 import { SectionTwo } from "./components/section/two";
-import type { UseSwiftFlowEditorProps } from "./hooks/use-minimal-tiptap";
-import { useSwiftFlowEditor } from "./hooks/use-minimal-tiptap";
+import type { UseSwiftFlowEditorProps } from "./hooks/use-swiftFlow";
+import { useSwiftFlowEditor } from "./hooks/use-swiftFlow";
 
 export interface SwiftFlowProps
   extends Omit<UseSwiftFlowEditorProps, "onUpdate"> {
@@ -79,22 +80,24 @@ export const SwiftFlowEditor = React.forwardRef<HTMLDivElement, SwiftFlowProps>(
     }
 
     return (
-      <MeasuredContainer
-        as="div"
-        name="editor"
-        ref={ref}
-        className={cn(
-          "flex h-auto min-h-72 w-full flex-col rounded-md border border-input shadow-sm focus-within:border-primary",
-          className
-        )}
-      >
-        <Toolbar editor={editor} />
-        <EditorContent
-          editor={editor}
-          className={cn("swiftflow", editorContentClassName)}
-        />
-        <LinkBubbleMenu editor={editor} />
-      </MeasuredContainer>
+      <TooltipProvider>
+        <MeasuredContainer
+          as="div"
+          name="editor"
+          ref={ref}
+          className={cn(
+            "flex h-auto min-h-72 w-full flex-col rounded-md border border-input shadow-sm focus-within:border-primary",
+            className
+          )}
+        >
+          <Toolbar editor={editor} />
+          <EditorContent
+            editor={editor}
+            className={cn("swiftflow", editorContentClassName)}
+          />
+          <LinkBubbleMenu editor={editor} />
+        </MeasuredContainer>
+      </TooltipProvider>
     );
   }
 );

@@ -1,11 +1,11 @@
 import type { ImageOptions } from '@tiptap/extension-image'
 import { Image as TiptapImage } from '@tiptap/extension-image'
+import type { Attrs } from '@tiptap/pm/model'
+import { ReplaceStep } from '@tiptap/pm/transform'
 import type { Editor } from '@tiptap/react'
 import { ReactNodeViewRenderer } from '@tiptap/react'
-import { ImageViewBlock } from './components/image-view-block'
 import { filterFiles, randomId, type FileError, type FileValidationOptions } from '../../utils'
-import { ReplaceStep } from '@tiptap/pm/transform'
-import type { Attrs } from '@tiptap/pm/model'
+import { ImageViewBlock } from './components/image-view-block'
 
 type ImageAction = 'download' | 'copyImage' | 'copyLink'
 
@@ -21,9 +21,9 @@ interface ImageActionProps extends DownloadImageCommandProps {
 export type UploadReturnType =
   | string
   | {
-      id: string | number
-      src: string
-    }
+    id: string | number
+    src: string
+  }
 
 interface CustomImageOptions extends ImageOptions, Omit<FileValidationOptions, 'allowBase64'> {
   uploadFn?: (file: File, editor: Editor) => Promise<UploadReturnType>
@@ -139,7 +139,6 @@ const copyLink = async (props: ImageActionProps, options: CustomImageOptions): P
 
 export const Image = TiptapImage.extend<CustomImageOptions>({
   atom: true,
-
   addOptions() {
     return {
       ...this.parent?.(),
@@ -183,52 +182,53 @@ export const Image = TiptapImage.extend<CustomImageOptions>({
     return {
       setImages:
         attrs =>
-        ({ commands }) => {
-          const [validImages, errors] = filterFiles(attrs, {
-            allowedMimeTypes: this.options.allowedMimeTypes,
-            maxFileSize: this.options.maxFileSize,
-            allowBase64: this.options.allowBase64
-          })
+          ({ commands }) => {
+            console.log({ attrs })
+            const [validImages, errors] = filterFiles(attrs, {
+              allowedMimeTypes: this.options.allowedMimeTypes,
+              maxFileSize: this.options.maxFileSize,
+              allowBase64: this.options.allowBase64
+            })
 
-          if (errors.length > 0 && this.options.onValidationError) {
-            this.options.onValidationError(errors)
-          }
+            if (errors.length > 0 && this.options.onValidationError) {
+              this.options.onValidationError(errors)
+            }
 
-          if (validImages.length > 0) {
-            return commands.insertContent(
-              validImages.map(image => {
-                if (image.src instanceof File) {
-                  const blobUrl = URL.createObjectURL(image.src)
-                  const id = randomId()
+            if (validImages.length > 0) {
+              return commands.insertContent(
+                validImages.map(image => {
+                  if (image.src instanceof File) {
+                    const blobUrl = URL.createObjectURL(image.src)
+                    const id = randomId()
 
-                  return {
-                    type: this.type.name,
-                    attrs: {
-                      id,
-                      src: blobUrl,
-                      alt: image.alt,
-                      title: image.title,
-                      fileName: image.src.name
+                    return {
+                      type: this.type.name,
+                      attrs: {
+                        id,
+                        src: blobUrl,
+                        alt: image.alt,
+                        title: image.title,
+                        fileName: image.src.name
+                      }
+                    }
+                  } else {
+                    return {
+                      type: this.type.name,
+                      attrs: {
+                        id: randomId(),
+                        src: image.src,
+                        alt: image.alt,
+                        title: image.title,
+                        fileName: null
+                      }
                     }
                   }
-                } else {
-                  return {
-                    type: this.type.name,
-                    attrs: {
-                      id: randomId(),
-                      src: image.src,
-                      alt: image.alt,
-                      title: image.title,
-                      fileName: null
-                    }
-                  }
-                }
-              })
-            )
-          }
+                })
+              )
+            }
 
-          return false
-        },
+            return false
+          },
 
       downloadImage: attrs => () => {
         const downloadFunc = this.options.downloadImage || downloadImage
@@ -250,37 +250,37 @@ export const Image = TiptapImage.extend<CustomImageOptions>({
 
       toggleImage:
         () =>
-        ({ editor }) => {
-          const input = document.createElement('input')
-          input.type = 'file'
-          input.accept = this.options.allowedMimeTypes.join(',')
-          input.onchange = () => {
-            const files = input.files
-            if (!files) return
+          ({ editor }) => {
+            const input = document.createElement('input')
+            input.type = 'file'
+            input.accept = this.options.allowedMimeTypes.join(',')
+            input.onchange = () => {
+              const files = input.files
+              if (!files) return
+              console.log(files)
+              const [validImages, errors] = filterFiles(Array.from(files), {
+                allowedMimeTypes: this.options.allowedMimeTypes,
+                maxFileSize: this.options.maxFileSize,
+                allowBase64: this.options.allowBase64
+              })
 
-            const [validImages, errors] = filterFiles(Array.from(files), {
-              allowedMimeTypes: this.options.allowedMimeTypes,
-              maxFileSize: this.options.maxFileSize,
-              allowBase64: this.options.allowBase64
-            })
+              if (errors.length > 0 && this.options.onValidationError) {
+                this.options.onValidationError(errors)
+                return false
+              }
 
-            if (errors.length > 0 && this.options.onValidationError) {
-              this.options.onValidationError(errors)
+              if (validImages.length === 0) return false
+
+              if (this.options.onToggle) {
+                this.options.onToggle(editor, validImages, editor.state.selection.from)
+              }
+
               return false
             }
 
-            if (validImages.length === 0) return false
-
-            if (this.options.onToggle) {
-              this.options.onToggle(editor, validImages, editor.state.selection.from)
-            }
-
-            return false
+            input.click()
+            return true
           }
-
-          input.click()
-          return true
-        }
     }
   },
 

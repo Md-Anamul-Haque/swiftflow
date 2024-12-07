@@ -19,9 +19,10 @@ import {
   Selection,
   UnsetAllMarks
 } from '../extensions'
-import { fileToBase64, getOutput, randomId } from '../utils'
+import { getOutput, randomId } from '../utils'
 import { useThrottle } from './use-throttle'
-
+type src = string
+export type OnFileUpload = (file: File) => Promise<src>;
 export interface UseSwiftFlowEditorProps extends UseEditorOptions {
   value?: Content
   output?: 'html' | 'json' | 'text'
@@ -30,9 +31,9 @@ export interface UseSwiftFlowEditorProps extends UseEditorOptions {
   throttleDelay?: number
   onUpdate?: (content: Content) => void
   onBlur?: (content: Content) => void
+  onFileUpload: OnFileUpload | null
 }
-
-const createExtensions = (placeholder: string) => [
+const createExtensions = (placeholder: string, onFileUpload: OnFileUpload | null = null) => [
   StarterKit.configure({
     horizontalRule: false,
     codeBlock: false,
@@ -49,20 +50,21 @@ const createExtensions = (placeholder: string) => [
   Image.configure({
     allowedMimeTypes: ['image/*'],
     maxFileSize: 5 * 1024 * 1024,
-    allowBase64: true,
-    uploadFn: async file => {
+    allowBase64: false,
+    uploadFn: onFileUpload ? async file => {
+
       // NOTE: This is a fake upload function. Replace this with your own upload logic.
       // This function should return the uploaded image URL.
 
       // wait 3s to simulate upload
       await new Promise(resolve => setTimeout(resolve, 3000))
-
-      const src = await fileToBase64(file)
+      alert(file)
+      const src = await onFileUpload(file)
 
       // either return { id: string | number, src: string } or just src
       // return src;
       return { id: randomId(), src }
-    },
+    } : undefined,
     onToggle(editor, files, pos) {
       editor.commands.insertContentAt(
         pos,
@@ -118,27 +120,37 @@ const createExtensions = (placeholder: string) => [
     }
   }),
   FileHandler.configure({
-    allowBase64: true,
+    allowBase64: false,
     allowedMimeTypes: ['image/*'],
     maxFileSize: 5 * 1024 * 1024,
-    onDrop: (editor, files, pos) => {
+    onDrop: onFileUpload ? (editor, files, pos) => {
       files.forEach(async file => {
-        const src = await fileToBase64(file)
+        const src = await onFileUpload(file)
         editor.commands.insertContentAt(pos, {
           type: 'image',
           attrs: { src }
         })
       })
-    },
-    onPaste: (editor, files) => {
-      files.forEach(async file => {
-        const src = await fileToBase64(file)
-        editor.commands.insertContent({
-          type: 'image',
-          attrs: { src }
-        })
-      })
-    },
+    } : undefined,
+    onPaste: onFileUpload
+      ? async (editor, files) => {
+        for (const file of files) {
+          try {
+            // Upload the file and get the S3 URL
+            const src = await onFileUpload(file);
+
+            // Insert the uploaded image into the editor
+            editor.commands.insertContent({
+              type: 'image',
+              attrs: { src },
+            });
+          } catch (error) {
+            console.error('Image upload failed:', error);
+            toast.error('Failed to upload image');
+          }
+        }
+      }
+      : undefined,
     onValidationError: errors => {
       errors.forEach(error => {
         toast.error('Image validation error', {
@@ -167,6 +179,7 @@ export const useSwiftFlowEditor = ({
   throttleDelay = 0,
   onUpdate,
   onBlur,
+  onFileUpload,
   ...props
 }: UseSwiftFlowEditorProps) => {
   const throttledSetValue = useThrottle((value: Content) => onUpdate?.(value), throttleDelay)
@@ -188,7 +201,7 @@ export const useSwiftFlowEditor = ({
   const handleBlur = React.useCallback((editor: Editor) => onBlur?.(getOutput(editor, output)), [output, onBlur])
 
   const editor = useEditor({
-    extensions: createExtensions(placeholder),
+    extensions: createExtensions(placeholder, onFileUpload),
     editorProps: {
       attributes: {
         autocomplete: 'off',

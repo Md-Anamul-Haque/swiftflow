@@ -1,50 +1,129 @@
-# React + TypeScript + Vite
+# SwiftFlow
 
-This template provides a SwiftFlow setup to get React working in Vite with HMR and some ESLint rules.
+**SwiftFlow** is a powerful, customizable, and user-friendly React component for building rich text editors. Designed with modern web development in mind, it provides developers with an intuitive, extensible, and performant solution for adding text editing functionality to their React applications.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Customizable Toolbar**: Easily configurable toolbar sections with options for headings, lists, formatting, and more.
+- **Image and File Upload**: Built-in image and file handling with upload support, validation, and error handling.
+- **Placeholder Support**: Customizable placeholder text for a better user experience.
+- **Multiple Content Outputs**: Supports various content output formats such as `HTML`, `JSON`, and `Text`.
+- **Real-time Updates**: Callbacks to capture content changes in real-time.
+- **Accessibility & Responsiveness**: Designed to work well across devices and screen sizes.
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+To install **SwiftFlow** in your React project, run the following command:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+```bash
+npm install swiftflow
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+or
 
-```js
-// eslint.config.js
-import react from "eslint-plugin-react";
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: "18.3" } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs["jsx-runtime"].rules,
-  },
-});
+```bash
+yarn add swiftflow
 ```
+
+## Usage
+
+Here's a basic example of how to integrate **SwiftFlow** into your React application:
+
+```typescript
+import React, { useState } from "react";
+import { SwiftFlowEditor } from "swiftflow";
+
+const App: React.FC = () => {
+  const [editorContent, setEditorContent] = useState("");
+
+  return (
+    <div className="App">
+      <SwiftFlowEditor
+        value={editorContent}
+        onChange={setEditorContent}
+        placeholder="Start typing..."
+        onFileUpload={async (file) => {
+          // Simulate an upload process and return a file URL
+          const fileUrl = "https://example.com/path/to/uploaded/file";
+          return fileUrl;
+        }}
+      />
+    </div>
+  );
+};
+
+export default App;
+```
+
+## Props Overview
+
+### `SwiftFlowEditor`
+
+- **`value`** (`Content`): Initial content of the editor.
+- **`onChange`** (`(value: Content) => void`): Callback to handle content updates.
+- **`className`** (`string`): Custom CSS class for the editor container.
+- **`editorContentClassName`** (`string`): Custom CSS class for the content area.
+- **`placeholder`** (`string`): Placeholder text for the editor.
+- **`onFileUpload`** (`(file: File) => Promise<string>`): Function for handling file uploads. Must return a URL of the uploaded file.
+
+### `useSwiftFlowEditor`
+
+- **`value`** (`Content`): Initial content for the editor.
+- **`output`** (`'html' | 'json' | 'text'`): The output format of the editor content. Defaults to `'html'`.
+- **`placeholder`** (`string`): The placeholder text displayed in the editor.
+- **`editorClassName`** (`string`): Custom class for the editor.
+- **`throttleDelay`** (`number`): Delay for throttling content updates in milliseconds. Defaults to `0`.
+- **`onUpdate`** (`(content: Content) => void`): Callback called when the content changes.
+- **`onBlur`** (`(content: Content) => void`): Callback called when the editor loses focus.
+- **`onFileUpload`** (`(file: File) => Promise<string>`): Function to handle file uploads.
+
+## Customizing the Editor
+
+**SwiftFlow** is built with a highly modular architecture that allows customization of its features. You can adjust the toolbar, modify the extension configurations, and add or remove features as needed.
+
+### Extending with Custom Extensions
+
+If you want to add more custom features, you can extend the `createExtensions` function in `useSwiftFlowEditor` to include your custom extensions.
+
+## Development & Contribution
+
+To contribute to **SwiftFlow**, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/md-anamul-haque/swiftflow.git
+   cd swiftflow
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Run the development server:
+
+   ```bash
+   npm start
+   ```
+
+4. Create a feature branch and make your changes:
+
+   ```bash
+   git checkout -b feature/your-feature
+   ```
+
+5. Push your changes and create a pull request.
+
+## License
+
+**SwiftFlow** is open-source and available under the [MIT License](LICENSE).
+
+## Acknowledgements
+
+**SwiftFlow** is built with [TipTap](https://tiptap.dev/) and leverages its robust extensibility and API to provide a seamless and powerful editing experience.
+
+---
+
+For more detailed documentation, please refer to the [full documentation](./docs/README.md) (if available) or visit the [GitHub repository](https://github.com/md-anamul-haque/swiftflow).
