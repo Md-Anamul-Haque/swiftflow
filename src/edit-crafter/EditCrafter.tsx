@@ -13,8 +13,8 @@ import { SectionFour } from "./components/section/four";
 import { SectionOne } from "./components/section/one";
 import { SectionThree } from "./components/section/three";
 import { SectionTwo } from "./components/section/two";
-import type { UseEditCrafterEditorProps } from "./hooks/use-swiftFlow";
-import { useEditCrafterEditor } from "./hooks/use-swiftFlow";
+import type { UseEditCrafterEditorProps } from "./hooks/use-editCrafter";
+import { useEditCrafterEditor } from "./hooks/use-editCrafter";
 
 export interface EditCrafterProps
   extends Omit<UseEditCrafterEditorProps, "onUpdate"> {

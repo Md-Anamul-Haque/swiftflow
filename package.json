@@ -1,15 +1,15 @@
 {
   "name": "editcrafter",
   "private": false,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
-  "main": "./dist/edit-Crafter.umd.js",
-  "module": "./dist/edit-Crafter.es.js",
-  "types": "/dist/edit-Crafter.d.ts",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "types": "/dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/edit-Crafter.es.js",
-      "require": "./dist/edit-Crafter.umd.js"
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js"
     }
   },
   "files": [

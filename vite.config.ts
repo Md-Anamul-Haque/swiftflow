@@ -1,5 +1,5 @@
 import react from '@vitejs/plugin-react'
-import path from 'path'
+import path, { resolve } from 'path'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 // https://vite.dev/config/
@@ -14,7 +14,7 @@ export default defineConfig({
       entry: path.resolve(__dirname, 'index.ts'),
       name: 'EditCrafter',
       // formats: ["es", "umd"],
-      fileName: (format) => `edit-Crafter.${format}.js`,
+      fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
       external: ['react', 'react-dom'],
@@ -26,7 +26,14 @@ export default defineConfig({
       },
     },
     sourcemap: true,
-    emptyOutDir: true,
+    // emptyOutDir: true,
   },
-  plugins: [react(), dts()],
+  plugins: [react(), dts(
+    {
+      insertTypesEntry: true,
+      tsconfigPath: resolve(__dirname, "tsconfig.app.json"),
+      // rollupTypes: true,
+      outDir: 'dist'
+    }
+  )],
 })
