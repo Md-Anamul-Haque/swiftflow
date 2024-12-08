@@ -93,6 +93,8 @@ module.exports = {
 };
 ```
 
+> also you can use CrafterPreview component to view preview
+
 ## Using **EditCrafter** with Tailwind
 
 Once you've completed the above steps, you can use **EditCrafter** in your project and style its components using Tailwind CSS classes as needed.

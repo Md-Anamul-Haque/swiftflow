@@ -1,7 +1,7 @@
 {
   "name": "editcrafter",
   "private": false,
-  "version": "0.2.1",
+  "version": "0.3.0",
   "type": "module",
   "main": "dist",
   "module": "dist",
@@ -79,6 +79,7 @@
     "@tiptap/starter-kit": "^2.10.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "html-react-parser": "^5.2.0",
     "lowlight": "^3.2.0",
     "lucide-react": "^0.468.0",
     "react-medium-image-zoom": "^5.2.11",
